@@ -5,4 +5,5 @@ export interface Producto {
   price: number;
   stock: number;
   image_url: string;
+  estado: number;
 }

@@ -34,10 +34,10 @@ export default function Navbar() {
             </div>
             <div className="hidden md:block ml-10">
               <div className="flex space-x-4">
-                <NavLink href="/">Inicio</NavLink>
-                <NavLink href="/productos">Productos</NavLink>
-                <NavLink href="/categorias">Categorías</NavLink>
-                <NavLink href="/contacto">Contacto</NavLink>
+                <a href="/">Inicio</a>
+                <a href="/">Productos</a>
+                <a href="/">Categorías</a>
+                <a href="/">Contacto</a>
               </div>
             </div>
           </div>
@@ -64,12 +64,6 @@ export default function Navbar() {
                 <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
                 </svg>
                 Carrito
-              </Link>
-              <Link
-                href="/admin"
-                className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700 transition-colors"
-              >
-                Administrar
               </Link>
             </div>
           </div>
@@ -117,10 +111,10 @@ export default function Navbar() {
       {/* Menú móvil */}
       <div className={`md:hidden ${isOpen ? "block" : "hidden"}`}>
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-          <MobileNavLink href="/">Inicio</MobileNavLink>
-          <MobileNavLink href="/productos">Productos</MobileNavLink>
-          <MobileNavLink href="/categorias">Categorías</MobileNavLink>
-          <MobileNavLink href="/contacto">Contacto</MobileNavLink>
+          <a href="/">Inicio</a>
+          <a href="/">Productos</a>
+          <a href="/">Categorías</a>
+          <a href="/">Contacto</a>
           <div className="mt-4 px-2">
             <SearchInput />
           </div>
@@ -201,7 +195,7 @@ function SearchInput() {
       <input
         type="text"
         placeholder="Buscar productos..."
-        className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        className="transition-all block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
       />
     </div>
   );

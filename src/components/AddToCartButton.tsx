@@ -16,7 +16,9 @@ export default function AddToCartButton({
   const [showLoginMessage, setShowLoginMessage] = useState(false);
   const router = useRouter();
   const userId = localStorage.getItem("userId");
-  // Verificar si hay sesión (solo se ejecuta en el cliente)
+// const userId = document.cookie.split("; ")
+//     .find((row) => row.startsWith("userId="))?.split("=")[1] || null;
+
   useEffect(() => {
     setIsLoggedIn(!!userId);
   }, []);

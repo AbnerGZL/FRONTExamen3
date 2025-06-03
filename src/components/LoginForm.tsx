@@ -31,8 +31,7 @@ export default function LoginForm() {
       }
 
       const data = await response.json();
-      console.log('Respuesta del servidor:', data);
-      // Guardar en localStorage directamente (sin useEffect)
+      
       if (data.id) {
         localStorage.setItem('userId', data.id);
         console.log('Usuario autenticado:', data.id);
