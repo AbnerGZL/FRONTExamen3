@@ -15,11 +15,10 @@ export default function AddToCartButton({
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
   const [showLoginMessage, setShowLoginMessage] = useState(false);
   const router = useRouter();
-
+  const userId = localStorage.getItem("userId");
   // Verificar si hay sesión (solo se ejecuta en el cliente)
   useEffect(() => {
-    const userId = localStorage.getItem("userId");
-    setIsLoggedIn(!!userId); // true si hay userId, false si no
+    setIsLoggedIn(!!userId);
   }, []);
 
   const handleAddToCart = async () => {
@@ -34,8 +33,10 @@ export default function AddToCartButton({
 
     setLoading(true);
     try {
-      const url = `${process.env.NEXT_PUBLIC_API_URL}/products/${productId}`;
-      const res = await fetch(url, { cache: "no-store", method: "POST" });
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/car/${userId}`;
+      const res = await fetch(url, { cache: "no-store", method: "POST", 
+        body: JSON.stringify({ id_producto: productId}), headers: { "Content-Type": "application/json" }
+    });
       await new Promise((resolve) => setTimeout(resolve, 1000));
       router.refresh();
     } catch (error) {

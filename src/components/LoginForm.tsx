@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
@@ -17,7 +17,7 @@ export default function LoginForm() {
     setError('');
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/login`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -31,9 +31,12 @@ export default function LoginForm() {
       }
 
       const data = await response.json();
-      useEffect(() => {
-        localStorage.setItem('userId', data.body.id);
-      }, []);
+      console.log('Respuesta del servidor:', data);
+      // Guardar en localStorage directamente (sin useEffect)
+      if (data.id) {
+        localStorage.setItem('userId', data.id);
+        console.log('Usuario autenticado:', data.id);
+      }
 
       router.replace("/");
     } catch (err) {
@@ -51,7 +54,7 @@ export default function LoginForm() {
         </h2>
         <p className="mt-2 text-center text-sm text-gray-600">
           O{' '}
-          <Link href="/registro" className="font-medium text-blue-600 hover:text-blue-500">
+          <Link href="/register" className="font-medium text-blue-600 hover:text-blue-500">
             crea una nueva cuenta
           </Link>
         </p>
