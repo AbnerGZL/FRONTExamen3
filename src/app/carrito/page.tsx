@@ -143,7 +143,7 @@ export default function CarritoPage() {
             <h3 className="mt-2 text-lg font-medium text-gray-900">Tu carrito está vacío</h3>
             <p className="mt-1 text-sm text-gray-500">Agrega algunos productos antes de proceder al pago.</p>
             <div className="mt-6">
-              <Link href="/productos" className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+              <Link href="/" className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                 Explorar productos
               </Link>
             </div>
