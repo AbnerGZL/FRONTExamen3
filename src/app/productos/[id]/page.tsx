@@ -4,11 +4,11 @@ import { notFound } from "next/navigation";
 import AddToCartButton from "@/components/AddToCartButton";
 import Link from "next/link";
 
-interface PageProps {
-  params: {
-    id: number;
-  };
-}
+// interface PageProps {
+//   params: {
+//     id: string;
+//   };
+// }
 
 // const ProductoPage: FC<PageProps> = async ({ params }) => {
 //   const { id } = params;
@@ -25,25 +25,25 @@ interface PageProps {
 //   return res.json();
 // }
 
-export default async function ProductoDetailPage({ params }: PageProps) {
+export default async function ProductoDetailPage({ params }: { params: { id: string } }) {
+
   const url = `${process.env.NEXT_PUBLIC_API_URL}/products/${params.id}`;
- try {
-    const res = await fetch(url, { cache: "no-store", method: "GET" });
+  const res = await fetch(url, { cache: "no-store", method: "GET" });
 
-    if (!res.ok) {
-      if (res.status === 404) {
-        notFound(); // redirecciona a 404
-      }
-      throw new Error("Error al obtener el producto");
-    }
-
-    const producto: Producto = await res.json();
-
-    if (!producto) {
+  if (!res.ok) {
+    if (res.status === 404) {
       notFound();
     }
+    throw new Error("Error al obtener el producto");
+  }
 
-    return (
+  const producto: Producto = await res.json();
+
+  if (!producto) {
+    notFound();
+  }
+
+  return (
     <div className="bg-gray-50 min-h-screen py-12">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
@@ -318,9 +318,4 @@ export default async function ProductoDetailPage({ params }: PageProps) {
       </div>
     </div>
   );
-  } catch (error) {
-    console.error("Error al cargar el producto:", error);
-    notFound();
-  }
-
 }
