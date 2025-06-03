@@ -6,7 +6,7 @@ import Link from "next/link";
 
 interface PageProps {
   params: {
-    id: string;
+    id: number;
   };
 }
 
@@ -27,22 +27,23 @@ interface PageProps {
 
 export default async function ProductoDetailPage({ params }: PageProps) {
   const url = `${process.env.NEXT_PUBLIC_API_URL}/products/${params.id}`;
-  const res = await fetch(url, { cache: "no-store", method: "GET" });
+ try {
+    const res = await fetch(url, { cache: "no-store", method: "GET" });
 
-  if (!res.ok) {
-    if (res.status === 404) {
+    if (!res.ok) {
+      if (res.status === 404) {
+        notFound(); // redirecciona a 404
+      }
+      throw new Error("Error al obtener el producto");
+    }
+
+    const producto: Producto = await res.json();
+
+    if (!producto) {
       notFound();
     }
-    throw new Error("Error al obtener el producto");
-  }
 
-  const producto: Producto = await res.json();
-
-  if (!producto) {
-    notFound();
-  }
-
-  return (
+    return (
     <div className="bg-gray-50 min-h-screen py-12">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
@@ -317,4 +318,9 @@ export default async function ProductoDetailPage({ params }: PageProps) {
       </div>
     </div>
   );
+  } catch (error) {
+    console.error("Error al cargar el producto:", error);
+    notFound();
+  }
+
 }
