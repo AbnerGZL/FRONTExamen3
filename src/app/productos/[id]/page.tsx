@@ -1,5 +1,4 @@
 import { Producto } from "@/types/producto";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import AddToCartButton from "@/components/AddToCartButton";
 import Link from "next/link";
@@ -103,19 +102,17 @@ export default async function Page({ params }: Params) {
               {/* Product Images */}
               <div className="md:w-1/2 p-6">
                 <div className="relative h-96 mb-4 rounded-lg overflow-hidden">
-                  <Image
+                  <img
                     src={producto.image_url}
                     alt={producto.name}
-                    fill
                     className="object-contain"
                     sizes="(max-width: 768px) 100vw, 50vw"
-                    priority
                   />
                 </div>
                 <div className="grid grid-cols-4 gap-2">
                   {/* Aquí podrías agregar miniaturas de otras imágenes del producto si las tuvieras */}
                   <div className="border rounded-md p-1 cursor-pointer hover:border-blue-500">
-                    <Image
+                    <img
                       src={producto.image_url}
                       alt={`Miniatura 1 - ${producto.name}`}
                       width={80}
