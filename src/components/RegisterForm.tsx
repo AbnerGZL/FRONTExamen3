@@ -54,9 +54,6 @@ export default function RegisterForm() {
         const errorData = await response.json();
         throw new Error(errorData.message || 'Error al registrar el usuario');
       }
-
-      const data = await response.json();
-      // Redirigir al login o dashboard después del registro
       router.push('/login?registered=true');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Ocurrió un error desconocido');
