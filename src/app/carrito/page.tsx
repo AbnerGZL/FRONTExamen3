@@ -188,7 +188,7 @@ export default function CarritoPage() {
                 <h3 className="text-lg leading-6 font-medium text-gray-900">Tu carrito de compras</h3>
               </div>
               <ul className="divide-y divide-gray-200">
-                {itemsCarrito.map((item, index) => (
+                {itemsCarrito.map((item) => (
                   <li key={item.id} className="px-4 py-4 sm:px-6">
                     <div className="flex items-center">
                       <div className="flex-shrink-0 h-20 w-20">

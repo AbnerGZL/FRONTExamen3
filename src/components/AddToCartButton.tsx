@@ -36,7 +36,7 @@ export default function AddToCartButton({
     setLoading(true);
     try {
       const url = `${process.env.NEXT_PUBLIC_API_URL}/car/${userId}`;
-      const res = await fetch(url, { cache: "no-store", method: "POST", 
+      await fetch(url, { cache: "no-store", method: "POST", 
         body: JSON.stringify({ id_producto: productId}), headers: { "Content-Type": "application/json" }
     });
       await new Promise((resolve) => setTimeout(resolve, 1000));

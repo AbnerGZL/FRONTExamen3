@@ -34,10 +34,10 @@ export default function Navbar() {
             </div>
             <div className="hidden md:block ml-10">
               <div className="flex space-x-4">
-                <a href="/">Inicio</a>
-                <a href="/">Productos</a>
-                <a href="/">Categorías</a>
-                <a href="/">Contacto</a>
+                <button>Inicio</button>
+                <button>Productos</button>
+                <button>Categorías</button>
+                <button>Contacto</button>
               </div>
             </div>
           </div>
@@ -111,10 +111,10 @@ export default function Navbar() {
       {/* Menú móvil */}
       <div className={`md:hidden ${isOpen ? "block" : "hidden"}`}>
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-          <a href="/">Inicio</a>
-          <a href="/">Productos</a>
-          <a href="/">Categorías</a>
-          <a href="/">Contacto</a>
+          <button>Inicio</button>
+          <button>Productos</button>
+          <button>Categorías</button>
+          <button>Contacto</button>
           <div className="mt-4 px-2">
             <SearchInput />
           </div>
