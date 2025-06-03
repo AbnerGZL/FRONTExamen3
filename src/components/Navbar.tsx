@@ -152,29 +152,6 @@ export default function Navbar() {
   );
 }
 
-// Componentes auxiliares
-function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
-  return (
-    <Link
-      href={href}
-      className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100 transition-colors"
-    >
-      {children}
-    </Link>
-  );
-}
-
-function MobileNavLink({ href, children }: { href: string; children: React.ReactNode }) {
-  return (
-    <Link
-      href={href}
-      className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 transition-colors"
-    >
-      {children}
-    </Link>
-  );
-}
-
 function SearchInput() {
   return (
     <div className="relative">
