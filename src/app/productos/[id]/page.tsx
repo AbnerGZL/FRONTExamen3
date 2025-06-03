@@ -11,20 +11,20 @@ interface PageProps {
   };
 }
 
-const ProductoPage: FC<PageProps> = async ({ params }) => {
-  const { id } = params;
-  const url = `${process.env.NEXT_PUBLIC_API_URL}/products/${id}`;
-  const res = await fetch(url, { cache: "no-store", method: "GET" });
+// const ProductoPage: FC<PageProps> = async ({ params }) => {
+//   const { id } = params;
+//   const url = `${process.env.NEXT_PUBLIC_API_URL}/products/${id}`;
+//   const res = await fetch(url, { cache: "no-store", method: "GET" });
 
-  if (!res.ok) {
-    if (res.status === 404) {
-      return null;
-    }
-    throw new Error("Error al obtener el producto");
-  }
+//   if (!res.ok) {
+//     if (res.status === 404) {
+//       return null;
+//     }
+//     throw new Error("Error al obtener el producto");
+//   }
 
-  return res.json();
-}
+//   return res.json();
+// }
 
 export default async function ProductoDetailPage({
   params,
