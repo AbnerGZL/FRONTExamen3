@@ -3,8 +3,16 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import AddToCartButton from "@/components/AddToCartButton";
 import Link from "next/link";
+import { FC } from 'react';
 
-async function getProducto(id: number): Promise<Producto | null> {
+interface PageProps {
+  params: {
+    id: string;
+  };
+}
+
+const ProductoPage: FC<PageProps> = async ({ params }) => {
+  const { id } = params;
   const url = `${process.env.NEXT_PUBLIC_API_URL}/products/${id}`;
   const res = await fetch(url, { cache: "no-store", method: "GET" });
 
@@ -23,7 +31,17 @@ export default async function ProductoDetailPage({
 }: {
   params: { id: string };
 }) {
-  const producto = await getProducto(Number(params.id));
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/products/${params.id}`;
+  const res = await fetch(url, { cache: "no-store", method: "GET" });
+
+  if (!res.ok) {
+    if (res.status === 404) {
+      notFound();
+    }
+    throw new Error("Error al obtener el producto");
+  }
+
+  const producto: Producto = await res.json();
 
   if (!producto) {
     notFound();
