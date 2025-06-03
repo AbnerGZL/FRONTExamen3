@@ -36,8 +36,8 @@ export default function LoginForm() {
         localStorage.setItem('userId', data.id);
         console.log('Usuario autenticado:', data.id);
       }
-
-      router.replace("/");
+      
+      window.location.href = "/";
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Ocurrió un error desconocido');
     } finally {

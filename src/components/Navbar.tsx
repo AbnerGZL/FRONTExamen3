@@ -6,14 +6,25 @@ import Link from "next/link";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
+    // Detecta si hay userId en localStorage para definir estado de login
+    setIsLoggedIn(!!localStorage.getItem("userId"));
+
     const handleScroll = () => {
       setScrolled(window.scrollY > 10);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("userId");
+    setIsLoggedIn(false);
+    // Recargar para actualizar la UI, o redirigir si quieres
+    window.location.reload();
+  };
 
   return (
     <nav
@@ -46,22 +57,64 @@ export default function Navbar() {
           <div className="hidden md:block">
             <div className="flex items-center space-x-4">
               <SearchInput />
-              <Link
-                href="/login"
-                className="flex items-center px-4 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600 transition-colors"
-              >
-                
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" className="bi bi-person" viewBox="0 0 16 16">
-                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
-                </svg>
-                Iniciar sesión
-              </Link>
+
+              {/* Botón Iniciar sesión / Cerrar sesión */}
+              {isLoggedIn ? (
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center px-4 py-2 text-sm font-medium text-gray-700 hover:text-red-600 transition-colors cursor-pointer"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="22"
+                    height="22"
+                    fill="currentColor"
+                    className="bi bi-box-arrow-right mr-1"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M6 3a1 1 0 0 1 1-1h3.293a1 1 0 0 1 .707.293l3.707 3.707a1 1 0 0 1 0 1.414l-3.707 3.707a1 1 0 0 1-.707.293H7a1 1 0 0 1-1-1v-2h1v2h3.293l3.707-3.707-3.707-3.707H7v2H6V3z"
+                    />
+                    <path
+                      fillRule="evenodd"
+                      d="M2 8a.5.5 0 0 1 .5-.5h6v1h-6A.5.5 0 0 1 2 8z"
+                    />
+                  </svg>
+                  Cerrar sesión
+                </button>
+              ) : (
+                <Link
+                  href="/login"
+                  className="flex items-center px-4 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600 transition-colors"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="22"
+                    height="22"
+                    fill="currentColor"
+                    className="bi bi-person"
+                    viewBox="0 0 16 16"
+                  >
+                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+                  </svg>
+                  Iniciar sesión
+                </Link>
+              )}
+
               <Link
                 href="/carrito"
                 className="flex items-center px-4 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600 transition-colors"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" className="bi bi-cart" viewBox="0 0 16 16">
-                <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="22"
+                  height="22"
+                  fill="currentColor"
+                  className="bi bi-cart"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
                 </svg>
                 Carrito
               </Link>
@@ -82,12 +135,7 @@ export default function Navbar() {
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
               <svg
                 className={`h-6 w-6 ${isOpen ? "block" : "hidden"}`}
@@ -96,12 +144,7 @@ export default function Navbar() {
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
           </div>
@@ -120,30 +163,39 @@ export default function Navbar() {
           </div>
           <div className="pt-4 pb-2 border-t border-gray-200">
             <div className="flex flex-col space-y-3">
-              <Link
-                href="/login"
-                className="w-full px-4 py-2 text-base font-medium text-center text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded-md transition-colors"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" className="bi bi-person" viewBox="0 0 16 16">
-                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
-                </svg>
-                Iniciar sesión
-              </Link>
-              <Link
-                href="/carrrito"
-                className="w-full px-4 py-2 text-base font-medium text-center text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded-md transition-colors"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" className="bi bi-cart" viewBox="0 0 16 16">
-                <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
-                </svg>
-                Carrito
-              </Link>
-              <Link
-                href="/admin"
-                className="w-full px-4 py-2 text-base font-medium text-center text-white bg-indigo-600 hover:bg-indigo-700 rounded-md transition-colors"
-              >
-                Administrar
-              </Link>
+              {/* Iniciar sesión / Cerrar sesión móvil */}
+              {isLoggedIn ? (
+                <button
+                  onClick={handleLogout}
+                  className="w-full flex px-4 py-2 text-base font-medium text-center text-red-600 hover:bg-red-100 rounded-md transition-colors cursor-pointer items-center"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="22"
+                    height="22"
+                    fill="currentColor"
+                    className="bi bi-box-arrow-right inline-block mr-2"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M6 3a1 1 0 0 1 1-1h3.293a1 1 0 0 1 .707.293l3.707 3.707a1 1 0 0 1 0 1.414l-3.707 3.707a1 1 0 0 1-.707.293H7a1 1 0 0 1-1-1v-2h1v2h3.293l3.707-3.707-3.707-3.707H7v2H6V3z"
+                    />
+                    <path
+                      fillRule="evenodd"
+                      d="M2 8a.5.5 0 0 1 .5-.5h6v1h-6A.5.5 0 0 1 2 8z"
+                    />
+                  </svg>
+                  Cerrar sesión
+                </button>
+              ) : (
+                <Link
+                  href="/login"
+                  className="w-full block px-4 py-2 text-base font-medium text-center text-indigo-600 hover:bg-indigo-100 rounded-md"
+                >
+                  Iniciar sesión
+                </Link>
+              )}
             </div>
           </div>
         </div>
@@ -152,28 +204,13 @@ export default function Navbar() {
   );
 }
 
+// Componente de ejemplo para el input de búsqueda
 function SearchInput() {
   return (
-    <div className="relative">
-      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-        <svg
-          className="h-5 w-5 text-gray-400"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-        >
-          <path
-            fillRule="evenodd"
-            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-            clipRule="evenodd"
-          />
-        </svg>
-      </div>
-      <input
-        type="text"
-        placeholder="Buscar productos..."
-        className="transition-all block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-      />
-    </div>
+    <input
+      type="search"
+      placeholder="Buscar..."
+      className="border border-gray-300 rounded-md px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+    />
   );
 }

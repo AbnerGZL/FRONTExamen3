@@ -101,7 +101,7 @@ export default async function Page({ params }: Params) {
             <div className="md:flex">
               {/* Product Images */}
               <div className="md:w-1/2 p-6">
-                <div className="relative h-96 mb-4 rounded-lg overflow-hidden">
+                <div className="w-full relative flex h-96 mb-4 rounded-lg overflow-hidden items-center justify-center">
                   <img
                     src={producto.image_url}
                     alt={producto.name}
@@ -111,7 +111,7 @@ export default async function Page({ params }: Params) {
                 </div>
                 <div className="grid grid-cols-4 gap-2">
                   {/* Aquí podrías agregar miniaturas de otras imágenes del producto si las tuvieras */}
-                  <div className="border rounded-md p-1 cursor-pointer hover:border-blue-500">
+                  <div className="w-full border flex rounded-md p-1 cursor-pointer hover:border-blue-500 items-center">
                     <img
                       src={producto.image_url}
                       alt={`Miniatura 1 - ${producto.name}`}
