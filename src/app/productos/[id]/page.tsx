@@ -4,11 +4,28 @@ import { notFound } from "next/navigation";
 import AddToCartButton from "@/components/AddToCartButton";
 import Link from "next/link";
 
-export default async function ProductoDetailPage({
-  params,
-}: {
-  params: { id: string };
-}) {
+interface PageProps {
+  params: {
+    id: string;
+  };
+}
+
+// const ProductoPage: FC<PageProps> = async ({ params }) => {
+//   const { id } = params;
+//   const url = `${process.env.NEXT_PUBLIC_API_URL}/products/${id}`;
+//   const res = await fetch(url, { cache: "no-store", method: "GET" });
+
+//   if (!res.ok) {
+//     if (res.status === 404) {
+//       return null;
+//     }
+//     throw new Error("Error al obtener el producto");
+//   }
+
+//   return res.json();
+// }
+
+export default async function ProductoDetailPage({ params }: PageProps) {
   const url = `${process.env.NEXT_PUBLIC_API_URL}/products/${params.id}`;
   const res = await fetch(url, { cache: "no-store", method: "GET" });
 
