@@ -4,44 +4,24 @@ import { notFound } from "next/navigation";
 import AddToCartButton from "@/components/AddToCartButton";
 import Link from "next/link";
 
-// interface PageProps {
-//   params: {
-//     id: string;
-//   };
-// }
+interface Params {
+  params: Promise<{ id: string }>;
+}
 
-// const ProductoPage: FC<PageProps> = async ({ params }) => {
-//   const { id } = params;
-//   const url = `${process.env.NEXT_PUBLIC_API_URL}/products/${id}`;
-//   const res = await fetch(url, { cache: "no-store", method: "GET" });
+export default async function Page({ params }: Params) {
+  const { id } = await params;
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/products/${id}`;
 
-//   if (!res.ok) {
-//     if (res.status === 404) {
-//       return null;
-//     }
-//     throw new Error("Error al obtener el producto");
-//   }
-
-//   return res.json();
-// }
-
-export default async function ProductoDetailPage({ params }: { params: { id: string } }) {
-
-  const url = `${process.env.NEXT_PUBLIC_API_URL}/products/${params.id}`;
-  const res = await fetch(url, { cache: "no-store", method: "GET" });
+  const res = await fetch(url, { cache: "no-store" });
 
   if (!res.ok) {
-    if (res.status === 404) {
-      notFound();
-    }
+    if (res.status === 404) notFound();
     throw new Error("Error al obtener el producto");
   }
 
   const producto: Producto = await res.json();
 
-  if (!producto) {
-    notFound();
-  }
+  if (!producto) notFound();
 
   return (
     <div className="bg-gray-50 min-h-screen py-12">
